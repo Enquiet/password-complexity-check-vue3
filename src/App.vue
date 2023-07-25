@@ -9,7 +9,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import CheckPassword from '@/components/CheckPassword.vue'
+import CheckPassword from '@/components/VueCheckPassword.vue'
 
 import { ref } from 'vue'
 

@@ -1,5 +1,5 @@
 {
-  "name": "vue-project",
+  "name": "check-password",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -29,5 +29,22 @@
     "typescript": "~5.0.4",
     "vite": "^4.3.9",
     "vue-tsc": "^1.6.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Enquiet/password-complexity-check-vue3"
+  },
+  "bugs": {
+    "url": "https://github.com/Enquiet/password-complexity-check-vue3/issues"
+  },
+  "homepage": "https://github.com/Enquiet/password-complexity-check-vue3#readme",
+  "main": "dist/vue-check-password.mjs",
+  "module": "dist/vue-check-password.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-check-password.mjs",
+      "require": "./dist/vue-check-password.umd.js"
+    },
+    "./dist/style.css": "./dist/style.css"
   }
 }

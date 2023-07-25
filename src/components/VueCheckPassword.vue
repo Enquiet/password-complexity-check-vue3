@@ -3,7 +3,7 @@
     <div class="check-password__status-bar" />
     <ul class="check-password__list">
       <li v-for="(message, index) in messages" :key="index" class="check-password__message">
-        <slot :message="message" />
+        <slot v-bind="message" />
       </li>
     </ul>
   </div>
@@ -31,8 +31,8 @@ const passwordComplexityPercentage = computed(() => {
   if (props.modelValue.length >= 8) counter += 40
   return counter
 })
-const messages = computed(() => {
-  const list = [
+const messages = computed((): IErrorMassage[] => {
+  const list: IErrorMassage[] = [
     {
       value: 'Введите символы: A-Z',
       error: !!props.modelValue.match(/[A-Z]/)
@@ -51,17 +51,16 @@ const messages = computed(() => {
     },
     {
       value: `Вводить только латинские символы`,
-      error: props.modelValue.match(/[/[а-яА-ЯЁё-і]/g)
+      error: !props.modelValue.match(/[/[а-яА-ЯЁё-і]/g)
     }
   ]
-  return props.onlyError ? list.filter((item) => !item.error) : list
+  return props.onlyError ? list.filter((item) => !item.error) as IErrorMassage[] : list
 })
 const statusColor = computed(() => {
-  if (passwordComplexityPercentage.value > 80) return '#2ecc71'
-  return '#E66767'
+  return passwordComplexityPercentage.value > 80 ? '#2ecc71' : '#E66767'
 })
 </script>
-<style>
+<style scoped>
 .check-password {
   font-family: Inter, sans-serif;
 }
