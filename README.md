@@ -9,7 +9,7 @@ Works only with vue version 3.
   import "vue-check-password/dist/style.css";
 </script>
 ```
-
+[Demo here](https://codesandbox.io/p/sandbox/autumn-morning-sv563n?file=%2Fsrc%2FApp.vue%3A18%2C1)
 ### Props
 #### modelValue
 Type: `string`<br>
