@@ -2,6 +2,14 @@
 
 Works only with vue version 3.
 
+### Setup
+```vue
+<script setup>
+  import VueCheckPassword from "vue-check-password";
+  import "vue-check-password/dist/style.css";
+</script>
+```
+
 ### Props
 #### modelValue
 Type: `string`<br>
@@ -10,14 +18,36 @@ Required: `true`<br>
 passing the password
 
 
-### Props
 #### only-error
 Type: `boolean`<br>
 Required: `false`<br>
-Default: `false`
+Default: `true`
 
 if the value is `true`, then only errors will be output
 if the value is `false`, the entire list will be output
+
+
+#### type
+Type: `string`<br>
+Required: `false`<br>
+Default: `default`
+
+allows you to display error text
+
+#### customerError
+Type: `object | null`<br>
+Required: `false`<br>
+Default: `null`
+
+allows you to display the text of custom errors
+
+|letters| upper case error         |
+|---|--------------------------|
+|number| digit not entered error  |
+| signs  | missing characters error |
+| quantity  |        minimum character error                  |
+| accuracy  |          error in keryl|
+
 
 ### Slots
 #### message

@@ -12,15 +12,32 @@
 import { computed } from 'vue'
 interface IProps {
   modelValue: string
-  onlyError: boolean
+  onlyError?: boolean
+  type: string
+  customerError?: ILanguage | null
 }
 interface IErrorMassage {
   value: string
   error: boolean
 }
 
-const props = defineProps<IProps>()
-const regex = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
+interface IErrorMessage {
+  letters?: string
+  number?: string
+  signs?: string
+  quantity?: string
+  accuracy?: string
+}
+interface ILanguage {
+  [key: string]: IErrorMessage
+}
+
+const props = withDefaults(defineProps<IProps>(), {
+  onlyError: true,
+  type: 'default',
+  customerError: null
+})
+const regex = /[ !@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/
 
 const passwordComplexityPercentage = computed(() => {
   let counter = 0
@@ -31,30 +48,44 @@ const passwordComplexityPercentage = computed(() => {
   if (props.modelValue.length >= 8) counter += 40
   return counter
 })
+
+const languageObj: ILanguage = {
+  default: {
+    letters: 'Enter characters: A-Z',
+    number: 'Enter characters: 0-9',
+    signs: 'Enter punctuation marks: !@#$%^&*()_+-=[]{};"|,.<>/?',
+    quantity: 'Enter more characters: 8',
+    accuracy: 'Enter only latin characters'
+  },
+  customer: {
+    ...props.customerError
+  }
+}
+
 const messages = computed((): IErrorMassage[] => {
-  const list: IErrorMassage[] = [
+  const list = [
     {
-      value: 'Введите символы: A-Z',
+      value: languageObj[props.type]?.letters,
       error: !!props.modelValue.match(/[A-Z]/)
     },
     {
-      value: 'Введите символы: 0-9',
+      value: languageObj[props.type]?.number,
       error: !!props.modelValue.match(/[0-9]/)
     },
     {
-      value: `Введите знаки пунктуации: !@#$%^&*()_+-=[]{};"|,.<>/?`,
+      value: languageObj[props.type]?.signs,
       error: regex.test(props.modelValue)
     },
     {
-      value: `Введите символы больше: 8`,
+      value: languageObj[props.type]?.quantity,
       error: props.modelValue.length >= 8
     },
     {
-      value: `Вводить только латинские символы`,
+      value: languageObj[props.type]?.accuracy,
       error: !props.modelValue.match(/[/[а-яА-ЯЁё-і]/g)
     }
-  ]
-  return props.onlyError ? list.filter((item) => !item.error) as IErrorMassage[] : list
+  ].filter((item) => item.value) as IErrorMassage[]
+  return props.onlyError ? (list.filter((item) => !item.error) as IErrorMassage[]) : list
 })
 const statusColor = computed(() => {
   return passwordComplexityPercentage.value > 80 ? '#2ecc71' : '#E66767'

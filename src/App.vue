@@ -1,7 +1,7 @@
 <template>
   <div>
     <input v-model="pass" />
-    <check-password v-model="pass" only-error>
+    <check-password v-model="pass">
       <template v-slot="message">
         {{ message }}
       </template>
