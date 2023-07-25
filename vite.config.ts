@@ -1,33 +1,33 @@
-const path = require("path");
-const { defineConfig } = require("vite");
-import vue from "@vitejs/plugin-vue";
+const path = require('path')
+const { defineConfig } = require('vite')
+import vue from '@vitejs/plugin-vue'
 
 module.exports = defineConfig(() => {
-  const rootPath = path.resolve(process.cwd());
-  const srcPath = `${rootPath}/src`;
+  const rootPath = path.resolve(process.cwd())
+  const srcPath = `${rootPath}/src`
   return {
     resolve: {
       alias: {
-        "~": rootPath,
-        "@": srcPath,
-      },
+        '~': rootPath,
+        '@': srcPath
+      }
     },
     plugins: [vue()], // to process SFC
     build: {
       lib: {
-        entry: path.resolve(__dirname, "src/index.ts"),
-        name: "VueCheckPassword",
+        entry: path.resolve(__dirname, 'src/index.ts'),
+        name: 'VueCheckPassword'
       },
       rollupOptions: {
-        external: ["vue"],
+        external: ['vue'],
         output: {
-          exports: "named",
+          exports: 'named',
           globals: {
-            vue: "Vue",
-          },
-        },
+            vue: 'Vue'
+          }
+        }
       },
-      emptyOutDir: false,
-    },
-  };
-});
+      emptyOutDir: false
+    }
+  }
+})
