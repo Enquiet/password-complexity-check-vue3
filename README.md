@@ -41,12 +41,13 @@ Default: `null`
 
 allows you to display the text of custom errors
 
-|letters| upper case error         |
-|---|--------------------------|
-|number| digit not entered error  |
-| signs  | missing characters error |
-| quantity  |        minimum character error                  |
-| accuracy  |          error in keryl|
+| key      | description         |
+|----------|--------------------------|
+| letters  | digit not entered error  |
+| number   | digit not entered error  |
+| signs    | missing characters error |
+| quantity | minimum character error|
+| accuracy |    error in keryl|
 
 
 ### Slots
